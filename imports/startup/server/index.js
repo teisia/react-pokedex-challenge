@@ -1,0 +1,1 @@
+import '../../../server/methods/pokemon'

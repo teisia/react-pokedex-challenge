@@ -1,0 +1,6 @@
+{
+  "pokemon": {
+      "endpoint": "",
+      "apiKey": ""
+  }
+}
