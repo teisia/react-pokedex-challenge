@@ -11,6 +11,8 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+import Search from '../search/search'
+
 const TableComponent = ({ title, data, columns, getData, loading }) => {
     const classes = useStyles()
     return (
@@ -20,6 +22,11 @@ const TableComponent = ({ title, data, columns, getData, loading }) => {
                     <Typography variant="h4" className={classes.title}>
                         {title}
                     </Typography>
+                </Grid>
+                <Grid item className={classes.filterContainer}>
+                    <Search 
+                        tableTitle={title}
+                        getData={getData} />
                 </Grid>
             </Grid>
             {loading ? 
@@ -88,5 +95,8 @@ const useStyles = makeStyles(theme => ({
     },
     loading: {
         margin: '20px auto'
+    },
+    filterContainer: {
+        display: 'flex'
     }
 }))

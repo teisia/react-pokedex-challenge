@@ -1,5 +1,6 @@
 import request from 'request'
 import Future from 'fibers/future'
+import isNull from 'lodash.isnull'
 
 Meteor.methods({
     'pokemon.get': function (selectedCategory, selectedFilters, searchValue, page) {
@@ -15,10 +16,20 @@ Meteor.methods({
                     console.log('This is body: ' + body)
                     res.return('error')
                 } else {
-                    const results = JSON.parse(body)
+                    const results = JSON.parse(body).pokemon
+                    let finalResults = results
                     let totalCount = results.length
 
-                    res.return({ results: results, totalCount: totalCount })
+                    // search
+                    if (!isNull(searchValue)) {
+                        const searchValueLowercase = searchValue.toLowerCase()
+                        finalResults = results.filter(r => {
+                            return r.name.toLowerCase().includes(searchValueLowercase)
+                         })
+                         totalCount = finalResults.length
+                    }     
+
+                    res.return({ results: finalResults, totalCount: totalCount })       
                 }
             })
         )

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import orderBy from 'lodash.orderby'
 
+import TableState from '../../state/singletons/tables'
+
 import Table from '../../components/table/table'
 import { columns } from '../../lib/constants/pokemon'
 
@@ -14,11 +16,15 @@ const Pokemon = () => {
         let formattedData = []
         Meteor.call(
             'pokemon.get',
+            '',
+            '',
+            TableState.searchValue,
+            '',
             (err, res) => {
             if (err) {
                 console.log(err)
             } else {
-                const results = orderBy(res.results.pokemon, 'name', 'asc')
+                const results = orderBy(res.results, 'name', 'asc')
                 formattedData = results.map(data => {
                     return columns.map(c => {
                         return data[c.toLowerCase()].toString()
