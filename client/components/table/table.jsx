@@ -12,8 +12,9 @@ import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import Search from '../search/search'
+import Filter from '../filter/filter'
 
-const TableComponent = ({ title, data, columns, getData, loading }) => {
+const TableComponent = ({ title, data, dataIndexes, columns, getData, loading, filterData, filterCategories }) => {
     const classes = useStyles()
     return (
         <TableContainer component={Paper} className={classes.table}>
@@ -27,6 +28,12 @@ const TableComponent = ({ title, data, columns, getData, loading }) => {
                     <Search 
                         tableTitle={title}
                         getData={getData} />
+                    <Filter 
+                        categories={filterCategories} 
+                        dataIndexes={dataIndexes} 
+                        getData={getData}
+                        filterData={filterData}
+                        tableTitle={title} />
                 </Grid>
             </Grid>
             {loading ? 
